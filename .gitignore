@@ -27,3 +27,11 @@ test*
 configs_test
 benchmark_results
 .venv/
+
+# Accelergy generated artifacts
+rundir-accelergy/accelergy_input/action_count.yaml
+rundir-accelergy/accelergy_input/architecture.yaml
+rundir-accelergy/output/
+
+# SCALE-Sim run log
+log
