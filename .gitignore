@@ -35,6 +35,3 @@ rundir-accelergy/output/
 
 # SCALE-Sim run log
 log
-
-# Multi-core simulation outputs
-multi-core/outputs/
