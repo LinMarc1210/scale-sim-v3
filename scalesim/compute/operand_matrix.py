@@ -60,7 +60,7 @@ class operand_matrix(object):
     def set_params(self,
                    config_obj,
                    topoutil_obj,
-                   layoututil_obj,
+                   layoututil_obj=None,
                    layer_id=0,
                    ):
         """
@@ -69,7 +69,10 @@ class operand_matrix(object):
 
         self.config = config_obj
         self.topoutil = topoutil_obj
-        self.layoututil = layoututil_obj
+        if layoututil_obj is None:
+            self.layoututil = layoututil()
+        else:
+            self.layoututil = layoututil_obj
         self.layer_id = layer_id
 
         # TODO: Marked for cleanup
@@ -88,8 +91,11 @@ class operand_matrix(object):
         self.num_input_channels = self.topoutil.get_layer_num_channels(self.layer_id)
         self.num_filters = self.topoutil.get_layer_num_filters(self.layer_id)
         self.row_stride, self.col_stride = self.topoutil.get_layer_strides(self.layer_id)
-        self.sparsity_ratio_N, self.sparsity_ratio_M = \
-            self.topoutil.get_layer_sparsity_ratio(self.layer_id)
+        if hasattr(self.topoutil, 'get_layer_sparsity_ratio'):
+            self.sparsity_ratio_N, self.sparsity_ratio_M = \
+                self.topoutil.get_layer_sparsity_ratio(self.layer_id)
+        else:
+            self.sparsity_ratio_N, self.sparsity_ratio_M = 1, 1
         # TODO: Marked for cleanup
         #self.row_stride = layer_hyper_param_arr[6]
         #if len(layer_hyper_param_arr) == 8:
